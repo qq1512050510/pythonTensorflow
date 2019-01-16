@@ -24,7 +24,7 @@ def funDestimateN(r,rh,Rl,n,gama,t,th):
 def dEstimate(r,rh,Rl,n,gama,t,th):
     
     if r==0 and rh==0:
-        result = funDestimate(r,rh,Rl,n,gama,t,th)
+        result = funDestimate(r,rh,Rl,n,gama,t,th) 
     else:
         result = funDestimateN(r,rh,Rl,n,gama,t,th)
            
