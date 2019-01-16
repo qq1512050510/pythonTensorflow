@@ -5,9 +5,12 @@ Created on 2019年1月16日
 @author: adp
 '''
 import tensorflow as tf
+g = tf.Graph()
 a = tf.constant([1.0,2.0],name="a")
 b = tf.constant([2.0,3.0],name="b")
-result = a+b
+with g.device('/gpu:0'):
+    result = a+b
+    print(result)
 print(a.graph is tf.get_default_graph())
 g1 = tf.Graph()
 with g1.as_default():
