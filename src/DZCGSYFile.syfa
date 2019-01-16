@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="GB18030" ?>
+<电子常规试验方案>
+    <CommonDatas>
+        <CommonData Name="保存时间" value="2018/09/23" />
+        <CommonData Name="文档类型" value="1" />
+        <CommonData Name="文档说明" value="电子类试验方案" />
+    </CommonDatas>
+    <InputDatas>
+        <InputData Name="任务时间要求" value="10000" />
+        <InputData Name="允许失效数" value="1" />
+        <InputData Name="允许试验时间" value="10000" />
+        <InputData Name="单位时间成本" value="500" />
+        <InputData Name="单位样品成本" value="200000" />
+        <InputData Name="历史失效数" value="0" />
+        <InputData Name="历史试验信息" value="100000" />
+        <InputData Name="可靠度下限" value="0.95" />
+        <InputData Name="可靠度点估计" value="0.96" />
+        <InputData Name="可靠性指标类型" value="1" />
+        <InputData Name="失效数" value="1" />
+        <InputData Name="样本量" value="3" />
+        <InputData Name="样本量类型" value="1" />
+        <InputData Name="置信度" value="0.7" />
+    </InputDatas>
+    <OutputDatas>
+        <OutputData Name="试验结果" value="" />
+    </OutputDatas>
+</电子常规试验方案>
