@@ -32,3 +32,11 @@ sess = tf.Session()
 with sess.as_default():
     print(result.eval())
     
+
+
+
+    
+sess = tf.Session()
+#两种 命令运行 
+print(sess.run(result))
+print(result.eval(session=sess))
