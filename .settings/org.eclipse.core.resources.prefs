@@ -1,12 +1,16 @@
 eclipse.preferences.version=1
 encoding//src/DZCGSYCal.py=utf-8
 encoding//src/MathCal.py=utf-8
+encoding//src/linearRegression/regression.py=utf-8
 encoding//src/mathCalculate.py=utf-8
 encoding//src/mathTest.py=utf-8
 encoding//src/pythonCal.py=utf-8
 encoding//src/tensorBoardTest.py=utf-8
 encoding//src/tensorflow2-4.py=utf-8
 encoding//src/tensorflow2_13.py=utf-8
+encoding//src/tensorflow3/tensorflow3_2_1.py=utf-8
+encoding//src/tensorflow3/tensorflowTensor.py=utf-8
+encoding//src/tensorflowCommunity/tensorboardTest.py=utf-8
 encoding//src/tensorflowCommunity/tensorflowTest.py=utf-8
 encoding//src/tensorflowTest.py=utf-8
 encoding//src/test.py=utf-8
