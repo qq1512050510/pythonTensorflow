@@ -6,8 +6,12 @@ Created on 2019年1月21日
 '''
 import tensorflow as tf
 import numpy as np
-import matplotlib.pyplot as plt
-from tensorflow.core.framework import cost_graph_pb2
+# import matplotlib.pyplot as plt
+#from tensorflow.core.framework import cost_graph_pb2
+
+import matplotlib
+matplotlib.use("TkAgg")
+from matplotlib import pyplot as plt
 
 learning_rate = 0.01
 training_epochs = 100
@@ -45,9 +49,11 @@ with tf.Session() as sess:
     w_val = sess.run(w)
 
 print(w_val)
+print(x_train)
+print(y_train)
 plt.scatter(x_train,y_train)
-y_learned = x_train*w_val 
-plt.plot(x_train,y_learned,'y')
+y_learned = x_train*w_val
+plt.plot(x_train,y_learned,'r')
 plt.show()
 
 
