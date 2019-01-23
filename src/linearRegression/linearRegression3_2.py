@@ -10,6 +10,7 @@ import numpy as np
 #from tensorflow.core.framework import cost_graph_pb2
 
 import matplotlib
+# compatibility mac
 matplotlib.use("TkAgg")
 from matplotlib import pyplot as plt
 
