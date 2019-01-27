@@ -8,7 +8,7 @@ import numpy as np
 import tensorflow as tf
 
 import matplotlib
-from cffi.backend_ctypes import xrange
+#from cffi.backend_ctypes import xrange  
 # compatibility mac
 matplotlib.use("TkAgg")
 from matplotlib import pyplot as plt
@@ -44,7 +44,7 @@ sess.run(init)
 
 
 #拟合平面
-for step in xrange(0,201): 
+for step in range(0,201): 
     sess.run(train)
     if step%20 == 0 :
         print(step,sess.run(W),sess.run(b))
