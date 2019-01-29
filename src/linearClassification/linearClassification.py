@@ -46,3 +46,4 @@ train_op = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
 
 
 
+
