@@ -4,10 +4,11 @@ Created on 2018年7月28日
 
 @author: adp
 '''
-impimport tensorflowTest as tfmport math
+import tensorflow as tf
+import math
 math.log
 sess = tf.Session()
-hello = tf.constant("hello tentensorflowTest
+hello = tf.constant("hello tentensorflowTest")
 print(sess.run(hello))
 
 print ("你好")

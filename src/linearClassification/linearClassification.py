@@ -37,6 +37,39 @@ cost = tf.reduce_sum(tf.square(Y-y_model))
 
 train_op = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
 
+sess = tf.Session()
+init = tf.global_variables_initializer()
+sess.run(init)
+
+
+for epoch in range(training_epochs):
+    sess.run(train_op,feed_dict={X:xs,Y:labels})
+    current_cost = sess.run(cost,feed_dict={X:xs,Y:labels})
+    if epoch%100 == 0:
+        print(epoch,current_cost)
+        
+w_val = sess.run(w)
+print('learned parameters',w_val)
+
+sess.close()
+
+all_xs = np.linspace(0,10,100)
+print(all_xs)
+print(w_val)
+plt.plot(all_xs,all_xs*w_val[1]+w_val[0])
+plt.show()
+
+correct_prediction = tf.equal(Y,tf.to_float(tf.greater(y_model,0.5)))
+accuracy = tf.reduce_mean(tf.to_float(correct_prediction))
+
+print('accuracy',sess.run(accuracy,feed_dict={X:xs,Y:labels}))
+
+
+
+
+
+
+
 
 
 
