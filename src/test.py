@@ -6,11 +6,20 @@ Created on 2018年7月28日
 '''
 import tensorflow as tf
 import math
+import numpy as np
 math.log
 sess = tf.Session()
 hello = tf.constant("hello tentensorflowTest")
 print(sess.run(hello))
-
+x1 = np.linspace(1,10)
+x2 = np.linspace(1,10,10)
+print(x1)
+print(x1.shape)
+print(x2)
+print(x2.shape)
+x3 = [[2,3],[3,4],[4,5]]
+print(x3)
+#print(x3.shape)
 print ("你好")
 if __name__ == '__main__':
     pass
