@@ -14,12 +14,13 @@ matplotlib.use("TkAgg")
 from matplotlib import pyplot as plt
 
 x_label0 = np.random.normal(5,1,10)
+#x_label0 = np.append(np.random.normal(5,1,9),20)
 x_label1 = np.random.normal(2,1,10)
 xs = np.append(x_label0,x_label1)
 labels = [0.]*len(x_label0) + [1.]*len(x_label1)
 
 plt.scatter(xs,labels)
-plt.show();
+#plt.show();
 
 learning_rate = 0.001
 training_epochs = 1000
@@ -51,7 +52,7 @@ for epoch in range(training_epochs):
 w_val = sess.run(w)
 print('learned parameters',w_val)
 
-sess.close()
+
 
 all_xs = np.linspace(0,10,100)
 print(all_xs)
@@ -64,7 +65,7 @@ accuracy = tf.reduce_mean(tf.to_float(correct_prediction))
 
 print('accuracy',sess.run(accuracy,feed_dict={X:xs,Y:labels}))
 
-
+sess.close()
 
 
 
