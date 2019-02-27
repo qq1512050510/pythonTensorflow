@@ -36,7 +36,9 @@ for i in range(1,n_layers):
     print(out_dimension)
     #生成当前层中权重的变量，并将这个变量的L2正则化加入计算图上的集合
     weight = get_weight([in_dimension,out_dimension],0,001)
-    
+    bias = tf.Variable(tf.constant(0.1,shape=[out_dimension]))
+    #使用RelU激活函数
+    cur_layer = tf.nn.relu(tf.matmul(cur_layer,weight) + bias)
 
 
 
