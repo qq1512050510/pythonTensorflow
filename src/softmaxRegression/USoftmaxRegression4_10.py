@@ -13,4 +13,3 @@ train_epochs = 1000
 num_labels = 3
 batch_size = 100
 
-#X = tf.placeholder(tf.float32,shape=[None,num_features])

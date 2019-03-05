@@ -54,6 +54,8 @@ test_x2_label2 = np.random.normal(0,1,(10,1))
 test_xs_label0 = np.hstack((test_x1_label0,test_x2_label0))
 test_xs_label1 = np.hstack((test_x1_label1,test_x2_label1))
 test_xs_label2 = np.hstack((test_x1_label2,test_x2_label2))
+
+test_xs = np.vstack((test_xs_label0,test_xs_label1,test_xs_label2))
 test_labels = np.matrix([[1.,0.,0.]]*10 + [[0.,1.,0.]]*10+[[0.,0.,1.]]*10)
 
 print(test_xs_label0)
@@ -66,7 +68,7 @@ train_size,num_features = xs.shape
 @title: Using softmax regression
 '''
 learning_rate = 0.01
-train_epochs = 1000
+training_epochs = 1000
 num_labels = 3
 batch_size = 100
 
@@ -83,7 +85,24 @@ train_op = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
 correct_prediction = tf.equal(tf.argmax(y_model,1),tf.argmax(Y,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction,tf.float32))
 
-
+with tf.Session() as sess:
+    tf.global_variables_initializer().run()
+    
+    for step in range(training_epochs * train_size // batch_size):
+        offset = (step * batch_size) % train_size 
+        batch_xs = xs[offset:(offset + batch_size),:]
+        batch_labels = labels[offset:(offset+batch_size)]
+        err,_ = sess.run([cost,train_op],feed_dict={X:batch_xs,Y:batch_labels})
+        print(step,err)
+    
+    W_val = sess.run(W)
+    print('w',W_val)
+    b_val = sess.run(b)
+    print('b', b_val)
+    print("accuracy",accuracy.eval(feed_dict={X:test_xs,Y:test_labels}))
+        
+        
+    
 
 
 
