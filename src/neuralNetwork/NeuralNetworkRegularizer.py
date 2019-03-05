@@ -35,10 +35,25 @@ for i in range(1,n_layers):
     out_dimension = layer_dimension[i]
     print(out_dimension)
     #生成当前层中权重的变量，并将这个变量的L2正则化加入计算图上的集合
-    weight = get_weight([in_dimension,out_dimension],0,001)
+    weight = get_weight([in_dimension,out_dimension],0.001)
     bias = tf.Variable(tf.constant(0.1,shape=[out_dimension]))
     #使用RelU激活函数
     cur_layer = tf.nn.relu(tf.matmul(cur_layer,weight) + bias)
+    #进入下一层前将下一层的节点个数更新为当前层节点个数
+    in_dimension = layer_dimension[i]
+
+#在定义神经网络前向传播的同时已经将所有的L2正则化损失加入了图上的集合
+#在这里只需要计算刻画模型在训练数据上表现的损失函数
+mse_loss = tf.reduce_mean(tf.square(y_-cur_layer))
+
+#将均方误差损失函数加入损失集合
+tf.add_to_collection('losses', mse_loss)
+
+#get_collection返回一个列表，这个列表是所有这个集合中的元素。在这个样例中，
+#这些元素就是损失函数的不同部分，将它们架起来就可以得到最终的损失函数
+loss = tf.add_n(tf.get_collection('losses'))
+
+print(loss)
 
 
 

@@ -8,7 +8,7 @@ import tensorflow as tf
 import numpy as np
 
 import matplotlib
-from linearRegression.linearRegression3_2 import cost
+#from linearRegression.linearRegression3_2 import cost
 # mac
 matplotlib.use("TkAgg")
 from matplotlib import pyplot as plt
