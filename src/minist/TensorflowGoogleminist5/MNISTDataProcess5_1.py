@@ -49,7 +49,13 @@ for i in range(28):
 #打印Example training data label:
 print("Example training data label:",mnist.train.labels[0])
 
-
+batch_size = 100
+xs,ys = mnist.train.next_batch(batch_size)
+#从train的集合中选取batch_size个训练数据
+print("X shape:",xs.shape)
+#输出X shape （100，784）
+print("Y shape：",ys.shape)
+#输出Y shape:(100,10)
 
 
 
