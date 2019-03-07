@@ -9,7 +9,13 @@ Created on Mar 5, 2019
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 from tensorflow.python.keras.regularizers import Regularizer
-from GoogleTensorflow.lossFunction4_2_2.neuralNetwork import train_step
+#from GoogleTensorflow.lossFunction4_2_2.neuralNetwork import train_step
+'''
+url:https://blog.csdn.net/chuan403082010/article/details/86255632
+'''
+import os
+# compatible mac system
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 #mnist = input_data.read_data_sets("../../minist/",one_hot=True)
 
