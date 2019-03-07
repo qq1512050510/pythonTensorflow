@@ -4,10 +4,18 @@ Created on Mar 5, 2019
 
 @author: jyp
 @book:Tensorflow 实战 Google 深度学习框架
-@part:第五章 2.2 节
+@part:第五章
 '''
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
+from tensorflow.python.keras.regularizers import Regularizer
+#from GoogleTensorflow.lossFunction4_2_2.neuralNetwork import train_step
+'''
+url:https://blog.csdn.net/chuan403082010/article/details/86255632
+'''
+import os
+# compatible mac system
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 #mnist = input_data.read_data_sets("../../minist/",one_hot=True)
 
@@ -31,8 +39,6 @@ MOVING_AVERAGE_DECAY = 0.99 #滑动平均衰减率
  通过ReLU激活函数实现了去线性化。在这个函数中也支持传入参数平均值的类，
  这样方便在测试时使用滑动平均模型
  '''
- 
-'''
 def inference(input_tensor,avg_class,weights1,biases1,weights2,biases2):
      #当没有提供滑动平均类是，直接使用参数当前的取之。
      if avg_class == None:
@@ -42,25 +48,8 @@ def inference(input_tensor,avg_class,weights1,biases1,weights2,biases2):
      else:
          layer1 = tf.nn.relu(tf.matmul(input_tensor,avg_class.average(weights1))+avg_class.average(biases1))
          return tf.matmul(layer1,avg_class.average(weights2)) + avg_class.average(biases2)
- '''    
-def inference(input_tensor,reuse=False):
-    #定义第一层神经网络的变量和向前传播过程。
-    with tf.variable_scope('layer1',reuse=reuse):
-        '''
-        根据传进来的reuse来判断是创建新变量还是使用已经创建好的。在第一次构建网络时需要
-        创建新的变量，以后每次调用这个函数都直接使用reuse=True就不需要每次将变量传进来了
-        '''
-        weights = tf.get_variable('weights',[INPUT_NODE,LAYER1_NODE],initializer=tf.truncated_normal_initializer(stddev=0.1))
-        biases = tf.get_variable('biases',[LAYER1_NODE],initializer=tf.constant_initializer(0.0))
-        layer1 = tf.nn.relu(tf.matmul(input_tensor,weights)+biases)
-    
-    with tf.variable_scope('layer2',reuse=reuse):
-        weights = tf.get_variable('weights',[LAYER1_NODE,OUTPUT_NODE],initializer=tf.truncated_normal_initializer(stddev=0.1))
-        biases = tf.get_variable('biases',[OUTPUT_NODE],initializer=tf.constant_initializer(0.0))
-        layer2 = tf.matmul(layer1,weights) + biases        
-    return layer2
-        
-        
+     
+
  
 def train(mnist):
     x = tf.placeholder(tf.float32,[None,INPUT_NODE],name="x-input")
@@ -74,8 +63,7 @@ def train(mnist):
     biases2 = tf.Variable(tf.constant(0.1,shape=[OUTPUT_NODE]))
     #计算在当前参数下的神经网络向前传播的结果，这里给出的用于计算滑动平均的类为None,
     #所以函数不会使用参数的滑动平均值
-    #y = inference(x,None,weights1,biases1,weights2,biases2)
-    y = inference(x)
+    y = inference(x,None,weights1,biases1,weights2,biases2)
     '''
     定义存储训练轮数的变量。这个变量不需要甲酸滑动平均值，所以这里指定这个变量为
     不可训练的变量（trainable=False）。在使用TensorFlow训练神经网络时，
@@ -84,7 +72,7 @@ def train(mnist):
     global_step = tf.Variable(0,trainable=False)
     '''
     给定滑动平均衰减率和训练轮数的变量，初始化滑动平均类。在第4章介绍过给定
-    训练轮数的变量可以加快训练早起变量的更新速度
+    训练轮数的变量可以加快训练早期变量的更新速度
     '''
     variable_averages = tf.train.ExponentialMovingAverage(MOVING_AVERAGE_DECAY,global_step)
     '''
@@ -98,8 +86,7 @@ def train(mnist):
     计算使用了滑动平均之后的向前传播结果。第4章中介绍过滑动平均不会改变变量本身的取值，而是会维护一个影子变量啦记录其滑动平均值。所有当需要使用这个滑动平均值时，
     需要明确调用average函数
     '''
-    #average_y = inference(x,variable_averages,weights1,biases1,weights2,biases2)
-    average_y = inference(x,True)
+    average_y = inference(x,variable_averages,weights1,biases1,weights2,biases2)
     
     #之前的调用方式
     #cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(y,tf.argmax(y_,1))
@@ -125,10 +112,7 @@ LEARNING_RATE_DECAY
     
 #使用tf.train.GradientDescentOptimizer 优化算法来优化算是函数。注意这里损失函数
 #包含了交叉熵损失和L2正则化损失
-   #train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss, global_step=global_step)
-    
-    #只优化交叉熵模型的模型优化函数的声明语句
-    train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(cross_entropy_mean, global_step=global_step)
+    train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss, global_step=global_step)
     
     with tf.control_dependencies([train_step,variables_averages_op]):
         train_op = tf.no_op(name="train")
@@ -150,8 +134,7 @@ LEARNING_RATE_DECAY
             #每1000轮输出一次在数据集上的测试结果
             if i%1000 == 0:
                 validate_acc = sess.run(accuracy,feed_dict=validate_feed)
-                test_acc = sess.run(accuracy,feed_dict=test_feed)
-                print("After %d training step(s),validate accuracy""using average model is %g,test accuracy using average model is %g"%(i,validate_acc,test_acc))
+                print("After %d training step(s),validate accuracy""using average model is %g"%(i,validate_acc))
         #产生这一轮使用的一个batch的训练数据，并运行训练过程
             xs,ys = mnist.train.next_batch(BATCH_SIZE)
             sess.run(train_op,feed_dict={x:xs,y_:ys})
