@@ -4,7 +4,7 @@ Created on Mar 5, 2019
 
 @author: jyp
 @book:Tensorflow 实战 Google 深度学习框架
-@part:第五章 2.2 节
+@part:第五章 5.3 节
 '''
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
@@ -140,6 +140,10 @@ LEARNING_RATE_DECAY
     
     correct_preduction = tf.equal(tf.argmax(average_y,1),tf.argmax(y_,1))
     accuracy = tf.reduce_mean(tf.cast(correct_preduction,tf.float32))
+    
+    
+    #声明tf.train.Saver类来保存模型
+    #saver = tf.train.Saver()
     
     #初始化会话并开始训练过程
     with tf.Session() as sess:
