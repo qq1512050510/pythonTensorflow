@@ -49,6 +49,9 @@ def word2vec_basic(log_dir):
   # pylint: disable=redefined-outer-name
   def maybe_download(filename, expected_bytes):
     """Download a file if not present, and make sure it's the right size."""
+    print("----")
+    print(gettempdir())
+    print("----")
     #local_filename = os.path.join(gettempdir(), filename)
     local_filename = os.path.join('./', filename)
     if not os.path.exists(local_filename):
