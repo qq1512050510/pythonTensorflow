@@ -5,7 +5,7 @@ Created on 2018年10月30日
 @author: adp
 '''
 # 可写函数说明
-import math
+import math 
 
 def printinfo( arg1, *vartuple ):
     "打印任何传入的参数"
